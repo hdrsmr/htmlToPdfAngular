@@ -15,8 +15,8 @@ export class DataService {
     return this.http.get<Transaksi[]>(this.apiUrl);
   }
 
-  downloadPDF(): Observable<Blob> {
-    return this.http.get('http://localhost:8080/api/transaksi/generatePdf', {
+  downloadPDF(pengumuman): Observable<Blob> {
+    return this.http.get('http://localhost:8080/api/transaksi/generatePdf/'+pengumuman, {
       responseType: 'blob'
     });
   }

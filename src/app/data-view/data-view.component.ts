@@ -7,10 +7,14 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./data-view.component.css']
 })
 export class DataViewComponent implements OnInit {
+
+  isLoading = false;
   users: any[] = [];
   pagedUsers: any[] = [];
   currentPage = 1;
   pageSize = 5;
+
+  textValue:string;
 
   newUser = {
     name: '',
@@ -21,6 +25,7 @@ export class DataViewComponent implements OnInit {
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
+
     this.dataService.getData().subscribe(data => {
       this.users = data;
       this.updatePagination();
@@ -28,7 +33,8 @@ export class DataViewComponent implements OnInit {
   }
 
   addUser() {
-    this.dataService.downloadPDF().subscribe((response: Blob) => {
+    this.isLoading = true;
+    this.dataService.downloadPDF(this.textValue).subscribe((response: Blob) => {
       const blob = new Blob([response], { type: 'application/pdf' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -37,6 +43,7 @@ export class DataViewComponent implements OnInit {
       a.click();
       
       window.URL.revokeObjectURL(url);
+      this.isLoading = false;
     });
   }
 
