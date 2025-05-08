@@ -1,0 +1,41 @@
+<div class="container">
+  <h2>Daftar Transaksi</h2>
+  <form (ngSubmit)="addUser()" class="form-container">
+    <button type="submit">Cetak</button>
+   
+  </form>
+
+
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Tgl Transaksi</th>
+        <th>Tgl Valuta</th>
+        <th>Uraian</th>
+        <th>Debet</th>
+        <th>Kredit</th>
+        <th>Saldo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of pagedUsers">
+        <td>{{ user.tanggalTrx }}</td>
+        <td>{{ user.tanggalValuta }}</td>
+        <td>{{ user.uraian }}</td>
+        <td>{{ user.debet }}</td>
+        <td>{{ user.kredit }}</td>
+        <td>{{ user.saldo }}</td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <div class="pagination">
+    
+    <button *ngFor="let page of pages" (click)="goToPage(page)" [class.active]="currentPage === page">
+      {{ page }}
+    </button>
+    
+  </div>
+  
+ 
+</div>
